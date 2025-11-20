@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaijaJobLand - Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <meta name="description"
+        content="Naijajobland is Nigeria’s next-generation job board offering verified job listings, internships, remote roles, entry-level opportunities, and hiring solutions for employers. Launching soon — join early and get notified.">
+    <meta name="keywords"
+        content="Nigeria jobs, job board Nigeria, Lagos jobs, remote jobs Nigeria, graduate jobs, internship jobs Nigeria, HR hiring platform, job seekers, recruitment Nigeria">
+
+
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Naijajobland | Nigeria’s Modern Job Search Platform for Millennials & Gen Z" />
+    <meta property="og:description"
+        content="We help students and professionals with their travel and study abroad applications. Learn more!" />
+    <meta property="og:image" content="https://naijajobland.com/assets/img/favicon.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://naijajobland.com/" />
+    <meta property="og:type" content="website" />
+
+
+    <!-- Stylesheets -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link rel="icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <!-- SweetAlert2 (for success/error messages): -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Bootstrap (for the spinner): -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+
+    <!-- Email.Js  -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- contact -->
+    <script type="text/javascript">
+        (function () {
+            emailjs.init({
+                publicKey: "yaab3UCbnyYjBTr0V",
+            });
+        })();
+    </script>
+    <!-- Email.js -->
+
+
+</head>
+
+<body>
+    <div class="hero-section">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="#" class="logo">NaijaJobLand</a>
+                    <div class="nav-links">
+                        <a href="#get-hired">Get Hired</a>
+                        <a href="#want-to-hire">Want to Hire</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-wrapper">
+                <h1 class="main-heading">NaijaJobLand is Coming Soon</h1>
+                <p class="sub-heading">
+                    From connecting talent to empowering careers<br>
+                    we drive your aspiration and your workforce forward
+                </p>
+
+                <!-- Email Notification Section -->
+                <div class="email-section">
+                    <form id="contact-form" name="contact_form" class="default-form" method="POST">
+                        <div class="input-wrapper">
+                            <input type="email" name="form_email" class="email-input"
+                                placeholder="Please enter your email address" required id="emailInput">
+                            <button type="submit" class="notify-btn">Notify Me</button>
+                        </div>
+                    </form>
+                    <div class="success-message" id="successMessage">
+                        ✓ Thank you! We'll notify you when we launch.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <a href="#privacy" class="privacy-link">privacy policy</a>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61583279741657" target="_blank">Facebook</a>
+                        <a href="https://www.instagram.com/naijajobland" target="_blank">Instagram</a>
+                        <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+
+
+    <script>
+        // Initialize Email.js
+        (function () {
+            emailjs.init("yaab3UCbnyYjBTr0V"); // Your Public Key
+        })();
+
+        // Handle form submission
+        document.getElementById("contact-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Select submit button
+            const submitButton = document.querySelector("#contact-form button");
+
+            // Get form values
+            const email = document.querySelector("[name='form_email']").value.trim();
+
+            // Validate form fields (Prevent empty submissions)
+            if (!email) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "⚠️ Missing Fields",
+                    text: "Please fill in all the fields before submitting.",
+                    confirmButtonColor: "#064645"
+                });
+                return;
+            }
+
+            // Add spinner and disable button
+            submitButton.innerHTML =
+                '<div class="spinner-border spinner-border-sm text-light me-2" role="status"></div> Sending...';
+            submitButton.disabled = true;
+
+            // Prepare form data
+            const formData = {
+                form_email: email,
+                date: new Date().toLocaleString() // Get current date & time
+            };
+
+            // Send email using Email.js
+            emailjs.send("service_lza4mre", "template_2fzq8dh", formData)
+                .then(function (response) {
+                    // Show success message
+                    Swal.fire({
+                        icon: "success",
+                        title: "✅ Message Sent!",
+                        text: "Thank you for reaching out. We will get back to you soon.",
+                        confirmButtonColor: "#064645"
+                    });
+
+                    // Reset form
+                    document.getElementById("contact-form").reset();
+
+                    // Restore button state
+                    submitButton.innerHTML = "Send Message";
+                    submitButton.disabled = false;
+                })
+                .catch(function (error) {
+                    // Show error message
+                    Swal.fire({
+                        icon: "error",
+                        title: "❌ Submission Failed",
+                        text: "An error occurred. Please try again later.",
+                        confirmButtonColor: "#064645"
+                    });
+
+                    // Restore button state
+                    submitButton.innerHTML = "Send Message";
+                    submitButton.disabled = false;
+                    console.error("EmailJS Error:", error);
+                });
+        });
+    </script>
+
+
+</body>
+
+</html>
